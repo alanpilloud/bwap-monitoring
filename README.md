@@ -1,1 +1,1 @@
-# bwap-monitoring
+# bwap-monitoring client

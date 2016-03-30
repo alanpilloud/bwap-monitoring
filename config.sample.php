@@ -1,0 +1,1 @@
+<?php/***  Secret key for accessing these informations*/define('KEY', '');/***  Specify a user agent to secure the informations*/define('AUTHORIZED_UA', '');
