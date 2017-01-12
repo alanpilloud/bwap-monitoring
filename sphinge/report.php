@@ -10,7 +10,7 @@ $_SERVER['HTTP_MONITORING_AGENT'] == 'sphinge-monitoring' or die;
 /**
 *  Now, let's go !
 */
-define('SPHINGE_VERSION', '1.6');
+define('SPHINGE_VERSION', '1.6.1');
 
 include('../wp-load.php');
 
@@ -66,7 +66,7 @@ $data = array(
         'mysql_version' => $wpdb->db_version()
     ),
     'extensions' => $extensions,
-    'users' => get_users(array('fields' => array('user_login', 'user_registered', 'user_email')))
+    'users' => get_users(array('fields' => array('id', 'user_login', 'user_registered', 'user_email')))
 );
 
 echo json_encode($data); exit();
