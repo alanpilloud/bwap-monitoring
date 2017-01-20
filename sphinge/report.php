@@ -1,22 +1,41 @@
 <?php
-include ('config.php');
+// start a new output buffer to catch all warnings or notices to be able to
+// clean the buffer and avoid unwanted strings to be sent.
+ob_start();
+try {
+    if (!include('config.php')) {
+        throw new Exception('config.php file is missing');
+    }
 
-/**
-*  Just ensure that there is a "secured" call
-*/
-$_GET['key'] === KEY or die;
-$_SERVER['HTTP_MONITORING_AGENT'] == 'sphinge-monitoring' or die;
+    /**
+    *  Just ensure that there is a "secured" call
+    */
+    if ($_GET['key'] !== KEY) {
+        throw new Exception('invalid secret key');
+    }
+
+    if ($_SERVER['HTTP_MONITORING_AGENT'] != 'sphinge-monitoring') {
+        throw new Exception('invalid request initiator');
+    }
+
+    if (!include(WP_LOAD_PATH.'/wp-load.php')) {
+        throw new Exception('wp-load.php file is missing');
+    }
+
+    if (!function_exists('get_plugins')) {
+        if (!include(ABSPATH.WP_ADMIN_PATH.'/includes/plugin.php')) {
+            throw new Exception('includes/plugin.php file is missing');
+        }
+    }
+} catch (Exception $e) {
+    ob_end_clean();
+    die; // return an empty response
+}
 
 /**
 *  Now, let's go !
 */
-define('SPHINGE_VERSION', '1.6.1');
-
-include('../wp-load.php');
-
-if ( ! function_exists( 'get_plugins' ) ) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
+define('SPHINGE_VERSION', '1.6.2');
 
 global $wpbd;
 
@@ -69,4 +88,5 @@ $data = array(
     'users' => get_users(array('fields' => array('id', 'user_login', 'user_registered', 'user_email')))
 );
 
+ob_end_clean();
 echo json_encode($data); exit();
