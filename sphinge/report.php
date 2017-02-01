@@ -35,7 +35,7 @@ try {
 /**
 *  Now, let's go !
 */
-define('SPHINGE_VERSION', '1.0.0-beta');
+define('SPHINGE_VERSION', '1.0.1-beta');
 
 global $wpbd;
 
