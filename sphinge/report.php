@@ -79,6 +79,7 @@ $extensions = array_merge($themes, $plugins, $muplugins);
 
 $data = array(
     'system' => array(
+        'type' => 'WordPress',
         'sphinge_version' => SPHINGE_VERSION,
         'wp_version' => get_bloginfo('version'),
         'php_version' => phpversion(),
