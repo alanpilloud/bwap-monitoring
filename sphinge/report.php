@@ -10,7 +10,7 @@ try {
     /**
     *  Just ensure that there is a "secured" call
     */
-    if ($_GET['key'] !== KEY) {
+    if ($_GET['key'] !== SPHINGE_KEY) {
         throw new Exception('invalid secret key');
     }
 
@@ -18,12 +18,12 @@ try {
         throw new Exception('invalid request initiator');
     }
 
-    if (!include(WP_LOAD_PATH.'/wp-load.php')) {
+    if (!include(SPHINGE_WP_LOAD_PATH.'/wp-load.php')) {
         throw new Exception('wp-load.php file is missing');
     }
 
     if (!function_exists('get_plugins')) {
-        if (!include(ABSPATH.WP_ADMIN_PATH.'/includes/plugin.php')) {
+        if (!include(ABSPATH.SPHINGE_WP_ADMIN_PATH.'/includes/plugin.php')) {
             throw new Exception('includes/plugin.php file is missing');
         }
     }
