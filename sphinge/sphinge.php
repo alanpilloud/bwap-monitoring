@@ -16,7 +16,7 @@
  * Plugin Name:       Sphinge
  * Plugin URI:        https://sphinge.io/
  * Description:       Allows your website to send data to your Sphinge server
- * Version:           2.0.0
+ * Version:           2.1.0
  * Author:            Team @ BWAP
  * Author URI:        https://bwap.ch
  * License:           GPL-2.0+
