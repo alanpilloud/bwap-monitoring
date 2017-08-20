@@ -2,12 +2,20 @@
 
 class Sphinge_Report
 {
+    /**
+     * Contains the available updates
+     */
+    private $updates;
 
     public function __construct()
     {
         // start a new output buffer to catch all warnings or notices to be able to
         // clean the buffer and avoid unwanted strings to be sent.
         ob_start();
+
+        // get updates informations from the database
+        $updates = get_option('_site_transient_update_plugins');
+        $this->updates = $updates->response;
 
         $data = array(
             'system' => array(
@@ -55,10 +63,23 @@ class Sphinge_Report
         if ( ! function_exists( 'get_plugins' ) ) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
-        
-        return array_values(array_map(function($plugin){
-            return array_merge(array('Type' => 'plugin'), $this->filter($plugin, array('Name', 'Version')));
-        }, get_plugins()));
+
+        $plugins = get_plugins();
+        if (empty($plugins)) {
+            return [];
+        }
+
+        $plugin_list = [];
+        foreach ($plugins as $key => $plugin) {
+            $plugin_list[] = [
+                'Type' => 'plugin',
+                'Name' => $plugin['Name'],
+                'Version' => $plugin['Version'],
+                'New_version' => $this->updates[$key]->new_version ?? null,
+            ];
+        }
+
+        return array_values($plugin_list);
     }
 
     /**
