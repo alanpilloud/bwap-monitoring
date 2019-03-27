@@ -1,0 +1,11 @@
+{
+    "name": "bwap/sphinge-wp",
+    "description": "Sphinge connector for WordPress",
+    "authors": [
+        {
+            "name": "alanpilloud",
+            "email": "alan@bwap.ch"
+        }
+    ],
+    "require": {}
+}
